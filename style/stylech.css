@@ -1,0 +1,29 @@
+#characters{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.characters-container {
+    display: flex;
+    background: rgb(211, 237, 211);
+    width: 31%;
+    max-height: 200px;
+    border-radius: 10px;
+    color: rgb(10, 79, 10);
+    img {
+        max-width: 50%;
+        max-height: 100%;
+        border-radius: 10px 0 0 10px;
+        padding: 0 10px 0 0;
+    }
+}
+
+h2{
+    margin: 10% 0 10% 0;
+}
+
+.textColorRed{
+    color: red;
+}
