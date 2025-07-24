@@ -1,4 +1,4 @@
-import { request, showNavMenu, showCharacters } from "./methods.js";
+import { request, showNavMenu, showCharacters, showCharacter } from "./methods.js";
 
 if(document.location.pathname === "/index.html"){
     showNavMenu();
