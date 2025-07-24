@@ -1,4 +1,6 @@
 export async function request(url = '', options = { method: "GET" }) {
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    // await delay(5000);
     const data = await fetch(url, options);
     if (!data.ok) {
         throw new Error("Error occurred while processing the request: " + data.statusText + " " + data.status);
@@ -6,7 +8,7 @@ export async function request(url = '', options = { method: "GET" }) {
     return data.json();
 }
 
-export const createElement = ({ tagName, src, value, className }) => {
+export const createElement = ({ tagName, src, value, className, id }) => {
     const tag = document.createElement(tagName);
     if (tagName === "a") {
         tag.href = src;
@@ -14,13 +16,16 @@ export const createElement = ({ tagName, src, value, className }) => {
         tag.src = src;
         tag.alt = value
     }
-
-    if(className){
-        tag.classList.add(className);
-    }
     if (value) {
         tag.innerText = value;
     }
+    if(className){
+        tag.classList.add(className);
+    }
+    if(id){
+        tag.id.add(id);
+    }
+    
 
     return tag;
 }
@@ -39,6 +44,7 @@ export const showNavMenu = () => {
 
 export const showCharacters = () => {
     const characters = document.querySelector("#characters");
+    document.querySelector(".modal-loader").classList.add("active")
     request("https://futuramaapi.com/api/characters")
     .then(data => {
         console.log(data.items)
@@ -48,10 +54,56 @@ export const showCharacters = () => {
             })
             characters.append(...item);
         }
+        document.querySelector(".modal-loader").classList.remove("active")
     })
-}   
+    .catch((error) => {
+        throw new Error(error)
+    });
+}  
+export const showCharacter = () => {
+    const characters = document.querySelector("#characters");
+    document.querySelector(".modal-loader").classList.add("active")
+    request("https://futuramaapi.com/api/characters")
+    .then(data => {
+        console.log(data.items)
+        if(Array.isArray(data.items) && data.items.length > 0){
+            const item = data.items.map(ch => {
+                return showCards(ch)
+            })
+            characters.append(...item);
+        }
+        document.querySelector(".modal-loader").classList.remove("active")
+    })
+    .catch((error) => {
+        throw new Error(error)
+    });
+}  
 function showCards(characters) {
-    const {image, name, species, status, gender, createdAt } = characters;
+    const {id, image, name, species, status, gender, createdAt } = characters;
+    const imageCh = createElement({ tagName: "img", src: image, value: name, className: "image" });
+    const nameCh = createElement({ tagName: "h2", value: name });
+    // const speciesCh = createElement({ tagName: "div", value: "Species: " + species.toLowerCase() });
+    // let statusCh = ""
+    // console.log(status)
+    // if (status === 'DEAD'){
+    //     statusCh = createElement({ tagName: "div", value: "Status: " + status, className: "textColorRed" });
+    // }else{
+    //     statusCh = createElement({ tagName: "div", value: "Status: " + status.toLowerCase() });
+    // }
+    // const genderCh = createElement({ tagName: "div", value: "Gender: " + gender.toLowerCase() });
+    // const createdAtCh = createElement({ tagName: "div", value: "Created: " + setDateEn(createdAt) });
+
+    const viewBt = createElement({ tagName: "button", value: "View", id: "viewButton" });
+    const containerCh = createElement({ tagName: 'div', className: "characters-container" });
+    const containerChDesc = createElement({ tagName: 'div'});
+    containerChDesc.append(nameCh, viewBt)
+    containerCh.append(imageCh, containerChDesc);
+
+    return containerCh
+}
+
+function showCard(characters) {
+    const {id, image, name, species, status, gender, createdAt } = characters;
     const imageCh = createElement({ tagName: "img", src: image, value: name, className: "image" });
     const nameCh = createElement({ tagName: "h2", value: name });
     const speciesCh = createElement({ tagName: "div", value: "Species: " + species.toLowerCase() });
@@ -64,9 +116,11 @@ function showCards(characters) {
     }
     const genderCh = createElement({ tagName: "div", value: "Gender: " + gender.toLowerCase() });
     const createdAtCh = createElement({ tagName: "div", value: "Created: " + setDateEn(createdAt) });
+
+    const closeBt = createElement({ tagName: "button", value: "Close", id: "closeButton" });
     const containerCh = createElement({ tagName: 'div', className: "characters-container" });
     const containerChDesc = createElement({ tagName: 'div'});
-    containerChDesc.append(nameCh, speciesCh, statusCh, genderCh, createdAtCh)
+    containerChDesc.append(nameCh, speciesCh, statusCh, genderCh, createdAtCh, closeBt)
     containerCh.append(imageCh, containerChDesc);
 
     return containerCh
@@ -74,7 +128,6 @@ function showCards(characters) {
 
 function setDateEn (isoString) {
     const date = new Date(isoString)
- 
     const year = date.getFullYear();
     const month = date.getMonth();
     const monthEn = date.toLocaleString('en-En', {month: 'long'});
