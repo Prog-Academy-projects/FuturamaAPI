@@ -1,12 +1,11 @@
 # 🚀 FuturamaAPI App
-A simple web app that fetches and displays data from the Futurama API, showcasing characters, quotes, and episodes from the iconic animated series.
+A simple web app that fetches and displays data from the Futurama API, showcasing characters from the iconic animated series.
 
 ## 🎬 Features
 - Fetch and display:
     - Characters
-    - Quotes
-    - Episodes
 - Simple UI for browsing and viewing content
+- Modal for preview Characters data
 - Loading indicator during API requests
 - Responsive layout
 
@@ -16,7 +15,7 @@ A simple web app that fetches and displays data from the Futurama API, showcasin
 - Futurama API
 
 ## 📦 Project Structure
-```cpp
+```js
 FuturamaAPI/
 │
 ├── index.html         // Main HTML page
@@ -26,17 +25,13 @@ FuturamaAPI/
 ├── code/              // JavaScript logic
 │   └── index.js      
 │   └── methods.js    
-├── characters/
-├── episodes/
-└── seasons/
+└── characters/
 ```
 
 
 ## 💡 How to Run
 1. Clone or download the repository:
 ```bash
-Copy
-Edit
 git clone https://github.com/Prog-Academy-projects/FuturamaAPI.git
 ```
 2. Open index.html in your browser.
