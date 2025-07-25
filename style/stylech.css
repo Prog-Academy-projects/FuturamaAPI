@@ -7,7 +7,7 @@
 
 .characters-container {
     display: flex;
-    background: rgb(211, 237, 211);
+    background-color: rgb(211, 237, 211);
     width: 31%;
     max-height: 200px;
     border-radius: 10px;
@@ -30,10 +30,11 @@
         width: 100%;
         margin: 0;
     }
-    a {
+    button {
         background-color: green;
         color: white;
-        border-radius: 10px;
+        border: 0;
+        border-radius: 5px;
         padding: 3px 15px;
         text-decoration: none;
     }
@@ -59,11 +60,13 @@
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #fefefe;
+  background-color: rgb(211, 237, 211);
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+  border-radius: 10px;
+  color: rgb(10, 79, 10);
 }
 
 /* The Close Button */
@@ -81,6 +84,7 @@
   cursor: pointer;
 }
 
+/* Modal-loader */
 .modal-loader {
     position: fixed;
     top: 0;
