@@ -61,26 +61,7 @@ export const showCharacters = () => {
     });
     
 }  
-    const modal = document.getElementById("myModal");
-    // const btn = document.getElementsByClassName(".viewButton");
-    const btn = document.getElementById("myBtn");
-    const span = document.getElementsByClassName("close")[0];
 
-    // Open modal on button click
-    btn.addEventListener("click", () => {
-        modal.style.display = "block";
-        showCharacter("1");
-    });
-    // Close modal on <span> click
-    span.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-    // Close modal on click outside the modal
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
 
 export const showCharacter = (character_id) => {
     const modal = document.querySelector("#myModal");
@@ -98,6 +79,32 @@ export const showCharacter = (character_id) => {
         throw new Error(error)
     });
 }  
+
+const modal = document.getElementById("myModal");
+const btn = document.getElementById("characters");
+const span = document.getElementsByClassName("close")[0];
+
+// Open modal on button click
+btn.addEventListener("click", (e) => {
+    if (e.target.classList.contains("viewButton")) {
+        const characterId = e.target.id;
+        modal.style.display = "block";
+        showCharacter(characterId);
+    }
+});
+
+// Close modal on <span> click
+span.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+// Close modal on click outside the modal
+window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+    
 function showCards(characters) {
     const {id, image, name, species, status, gender, createdAt } = characters;
     const imageCh = createElement({ tagName: "img", src: image, value: name, className: "image" });
