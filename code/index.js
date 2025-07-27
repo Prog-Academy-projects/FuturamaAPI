@@ -2,6 +2,7 @@ import { request, showNavMenu, showCharacters, showCharacter } from "./methods.j
 
 if(document.location.pathname === "/index.html"){
     showNavMenu();
-}else if(document.location.pathname === "/characters/"){
+// }else if(document.location.pathname === "/characters/"){
+} else if (location.pathname.includes("characters")) {
     showCharacters();
 }
